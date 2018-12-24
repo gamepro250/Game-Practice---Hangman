@@ -13,10 +13,16 @@ public class Hangman
 		System.out.println("Enter you word/phrase") ;
 		String answer = in.nextLine() ;
 
-		HandleAnswer game = new HandleAnswer(answer) ;
+		HandleAnswer game = new HandleAnswer(answer.toUpperCase()) ;
+		hangmanGui GUI = new hangmanGui() ;
 
+		GUI.display() ;
 		System.out.print("\n\n\n\n\n\n") ;
 
+		game.setPunct() ;
+		game.displayBlanks() ;
+		
+		System.out.print("\n\n\n");
 		while(!game.isCorrect() && !quit)
 		{
 			System.out.println("Do you want to:\n1.Guess a letter.\n2.Guess answer.\n3.Quit") ;
@@ -27,14 +33,14 @@ public class Hangman
 				System.out.println("What letter do you guess?") ;
 				guess = in.nextLine() ;
 
-				game.checkLetter(answer, guess);
+				game.checkLetter(answer.toUpperCase(), guess.toUpperCase());
 			}
 			else if(choice.equals("2"))
 			{
 				System.out.println("What do you think the phrase is?") ;
 				guess = in.nextLine() ;
 
-				game.checkGuess(answer, guess);
+				game.checkGuess(answer.toUpperCase(), guess.toUpperCase());
 			}
 			else if(choice.equals("3"))
 			{
@@ -43,7 +49,7 @@ public class Hangman
 
 			if(game.incorrectGuesses()==5)
 			{
-				System.out.println("Maximum number of incorrect guesses reached.\n Correct answer: " + answer) ;
+				System.out.println("Maximum number of incorrect guesses reached.\n Correct answer: " + answer.toUpperCase()) ;
 				break ;
 			}
 		}

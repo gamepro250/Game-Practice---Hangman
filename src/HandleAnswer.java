@@ -6,15 +6,28 @@ public class HandleAnswer
 	public int incorrectGuess = 0 ;
 	public int numguesses = 0 ;
 	public String[] guessed= new String[26] ;
-	String[] answerBlanks;
+	public String[] answerBlanks;
 	public boolean guessCorrect = false ;
-
+	public String answer ;
+	
 	public HandleAnswer(String answer)
 	{
+		this.answer = answer ;
 		answerBlanks= new String[answer.length()] ;
 		Arrays.fill(answerBlanks, "_") ;
 	}
-
+	
+	public void setPunct()
+	{
+		for(int j=0;j<answer.length();j++)
+		{
+			if(Character.toString(answer.charAt(j)).matches("[?!\'-.&()]"))
+			{
+				answerBlanks[j] = Character.toString(answer.charAt(j)) ;
+			}
+		}
+	}
+	
 	public void checkLetter(String answer, String guess)
 	{
 		for(int i=0;i<guessed.length;i++)
@@ -39,25 +52,16 @@ public class HandleAnswer
 				answerBlanks[j] = guess ;
 				guessCorrect = true ;
 			}
+			if(Character.toString(answer.charAt(j)).matches("[?!\'-.&()]"))
+			{
+				answerBlanks[j] = Character.toString(answer.charAt(j)) ;
+			}
 		}
 
 		System.out.println("\n") ;
 
-		for(int k=0;k<answerBlanks.length;k++)
-		{
-			if(answer.charAt(k)==' ')
-			{
-				System.out.print(" ") ;
-			}
-			else if(answerBlanks[k].matches("[A-Za-z]"))
-			{
-				System.out.print(answerBlanks[k]) ;
-			}
-			else
-			{
-				System.out.print(answerBlanks[k] + " ") ;
-			}
-		}
+		displayBlanks() ;
+		
 		System.out.println("\n") ;
 
 		if(!guessCorrect)
@@ -85,4 +89,24 @@ public class HandleAnswer
 	{
 		return incorrectGuess ;
 	}
+
+	public void displayBlanks()
+	{
+		for(int k=0;k<answerBlanks.length;k++)
+		{
+			if(answer.charAt(k)==' ')
+			{
+				System.out.print("  ") ;
+			}
+			else if(answerBlanks[k].matches("[A-Za-z]"))
+			{
+				System.out.print(answerBlanks[k]) ;
+			}
+			else
+			{
+				System.out.print(answerBlanks[k] + " ") ;
+			}
+		}
+	}
+	
 }
