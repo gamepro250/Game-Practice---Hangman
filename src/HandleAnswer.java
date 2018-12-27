@@ -37,6 +37,11 @@ public class HandleAnswer
 				System.out.println("\n" + guess + " has already been guessed. Please try something else.\n") ;
 				return ;
 			}
+			else if(guess.length() > 1)
+			{
+				System.out.println("\n" + guess + " is longer than one character. Please try something else.\n");
+				return ;
+			}
 			else if(guessed[i]==null)
 			{
 				guessed[i] = guess ;
